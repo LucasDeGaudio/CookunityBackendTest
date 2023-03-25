@@ -2,7 +2,7 @@ export interface TracesRequest {
   ip: string;
 }
 
-export interface TracesResponse {
+export interface TracesApiResponse {
   status: string;
   message: string;
   country: string;
@@ -14,5 +14,21 @@ export interface TracesResponse {
 }
 
 export interface TracesParameters {
-  fields: string[];
+  fields: number;
+}
+
+interface Currencies {
+  iso: string;
+  symbol: string;
+  conversionRate: number;
+}
+
+export interface TracesResultResponse {
+  ip: string;
+  name: string;
+  code: string;
+  lat: number;
+  lon: number;
+  currencies?: Currencies;
+  distanceToUsa?: number;
 }

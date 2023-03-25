@@ -1,6 +1,7 @@
 # Dependencies
 .npm
 node_modules
+data/
 
 # Logs
 npm-debug.log

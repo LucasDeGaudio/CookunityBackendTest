@@ -1,9 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { responseConstants } from '../constants/response';
 import { resolveResponse } from '../helpers/response/response-helper';
-import { TracesRequest, TracesResponse } from '../interfaces/resources/traces';
+import {
+  TracesRequest,
+  TracesApiResponse,
+  TracesResultResponse,
+} from '../interfaces/resources/traces';
 import { ApiResponse } from '../interfaces/response/response';
-import { tracesConnector } from '../connectors/traces-connector';
+import { tracesService } from '../services/traces-service';
 
 class TracesController {
   public process = async (
@@ -18,16 +22,11 @@ class TracesController {
       const ip = requestBody.ip;
       console.info('ip: ', ip);
 
-      const response: TracesResponse = await tracesConnector.getData(ip);
-      console.info('response controller');
+      const response: TracesResultResponse = await tracesService.getInfo(ip);
       console.info(response);
-      // const data = await dailyAmountService.getDailyAmount(requestQuery);
 
-      const jsonResponse: ApiResponse = {
-        statusCode: responseConstants.httpResponseCode.OK,
-        statusMessage: responseConstants.statusMessage.OK,
-        data: null,
-      };
+      const jsonResponse: ApiResponse = response;
+
       resolveResponse(res, responseConstants.httpResponseCode.OK, jsonResponse);
       console.info('<GET traces> Finished');
     } catch (error) {

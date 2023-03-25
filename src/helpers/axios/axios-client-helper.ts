@@ -2,10 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { requestConstants } from '../../constants/request';
 import { Configuration } from '../../interfaces/axios/request';
 
-const createAxiosClient = (
-  config?: Configuration,
-  authorizationRefreshCallback?: () => string,
-): AxiosInstance => {
+const createAxiosClient = (config?: Configuration): AxiosInstance => {
   const axiosConfig: AxiosRequestConfig = {
     headers: {
       'Content-Type': requestConstants.headers.contentType.json,

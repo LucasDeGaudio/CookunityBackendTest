@@ -4,17 +4,18 @@ import BaseConnector from './base-connector';
 import { IpError } from '../errors/ip-error';
 import {
   TracesParameters,
-  TracesResponse,
+  TracesApiResponse,
 } from '../interfaces/resources/traces';
 
 class TracesConnector extends BaseConnector {
-  public getData = async (ip: string): Promise<TracesResponse> => {
+  public getData = async (ip: string): Promise<TracesApiResponse> => {
     try {
       const endpoint = tracesConstants.endpoint.concat(ip);
-      const params = {
+      const params: TracesParameters = {
         fields: tracesConstants.fieldsToQuery,
       };
-      const response = await this.doGet<TracesResponse>(endpoint, params);
+      const response = await this.doGet<TracesApiResponse>(endpoint, params);
+
       if (response.status !== tracesConstants.responseSuccess) {
         throw new IpError('Traces-getData', response);
       }
