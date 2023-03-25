@@ -3,7 +3,6 @@ export const requestConstants = {
   headers: {
     contentType: {
       json: 'application/json',
-      xls: 'application/vnd.ms-excel',
     },
     accept: {
       json: 'application/json',

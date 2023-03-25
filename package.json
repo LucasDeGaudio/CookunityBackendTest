@@ -4,11 +4,11 @@
   "description": "Backend home test",
   "main": "dist/server.js",
   "scripts": {
-    "build": "npx tsc",
-    "build2": "tsc --project ./",
+    "build": "tsc --project ./",
     "start": "node dist/server.js",
     "watch": "nodemon -r dotenv/config src/server.ts",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\""
+    "dev": "docker-compose up -d app",
+    "dev2": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\""
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,9 @@
     "concurrently": "^7.6.0",
     "nodemon": "^2.0.21",
     "ts-node": "^10.4.0",
-    "typescript": "^5.0.2"
+    "typescript": "^4.5.5",
+    "jest": "^27.4.7",
+    "jest-junit": "^14.0.1",
+    "ts-jest": "^27.1.3"
   }
 }

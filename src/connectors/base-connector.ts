@@ -15,7 +15,7 @@ abstract class BaseConnector {
     try {
       const configuration: Configuration = this.getConfiguration();
       const axiosClient: AxiosInstance = createAxiosClient(configuration);
-      console.info('<netsuite-base-connector> GET - Request:', {
+      console.info('<base-connector> GET - Request:', {
         endpoint,
         params,
       });
