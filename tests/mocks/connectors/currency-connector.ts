@@ -1,22 +1,21 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
-const tracesApiResponseOk = {
-  status: 'success',
-  country: 'United States',
-  countryCode: 'US',
-  lat: 29.634,
-  lon: -95.5758,
-  currency: 'USD',
-  query: '192.168.1.1',
+const currencyApiResponseOk = {
+  success: true,
+  query: { from: 'ARS', to: 'USD', amount: 1 },
+  date: '2023-03-26',
+  result: 0.004872,
 };
 
-const tracesApiResponseError = {
-  status: 'fail',
-  message: 'Invalid Ip',
+const currencyApiResponseError = {
+  error: {
+    code: 'invalid_from_currency',
+    message: 'You have entered an invalid "from" property',
+  },
 };
 
 export const tracesAxiosGetResponseOk: AxiosResponse = {
-  data: tracesApiResponseOk,
+  data: currencyApiResponseOk,
   status: 200,
   statusText: '',
   headers: undefined,
@@ -24,7 +23,7 @@ export const tracesAxiosGetResponseOk: AxiosResponse = {
 };
 
 export const tracesAxiosGetResponseError: AxiosResponse = {
-  data: tracesApiResponseError,
+  data: currencyApiResponseError,
   status: 200,
   statusText: '',
   headers: undefined,

@@ -2,7 +2,7 @@ export interface TracesRequest {
   ip: string;
 }
 
-export interface TracesApiResponse {
+export interface IpGeolocalizationApiResponse {
   status: string;
   message: string;
   country: string;
@@ -13,8 +13,26 @@ export interface TracesApiResponse {
   query: string;
 }
 
-export interface TracesParameters {
+export interface IpGeolocalizationParameters {
   fields: number;
+}
+
+interface CurrencyQuery {
+  amount: number;
+  from: string;
+  to: string;
+}
+export interface CurrencyApiResponse {
+  date: string;
+  query: CurrencyQuery;
+  result: number;
+  success: boolean;
+}
+
+export interface CurrencyParameters {
+  to: string;
+  from: string;
+  amount: number;
 }
 
 interface Currencies {
@@ -29,6 +47,6 @@ export interface TracesResultResponse {
   code: string;
   lat: number;
   lon: number;
-  currencies?: Currencies;
+  currencies?: Currencies[];
   distanceToUsa?: number;
 }

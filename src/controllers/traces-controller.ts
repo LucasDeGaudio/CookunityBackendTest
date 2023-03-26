@@ -3,7 +3,6 @@ import { responseConstants } from '../constants/response';
 import { resolveResponse } from '../helpers/response/response-helper';
 import {
   TracesRequest,
-  TracesApiResponse,
   TracesResultResponse,
 } from '../interfaces/resources/traces';
 import { ApiResponse } from '../interfaces/response/response';

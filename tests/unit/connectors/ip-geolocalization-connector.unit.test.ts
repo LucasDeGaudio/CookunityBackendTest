@@ -1,15 +1,15 @@
-import { tracesConnector } from '../../../src/connectors/traces-connector';
 import axios from 'axios';
+import { ipGeolocalizationConnector } from '../../../src/connectors/ip-geolocalization-connector';
+import { ExternalError } from '../../../src/errors/external-error';
+import { IpError } from '../../../src/errors/ip-error';
 import * as axiosClientHelper from '../../../src/helpers/axios/axios-client-helper';
 import {
-  tracesAxiosGetResponseOk,
-  tracesAxiosGetResponseError,
   status500AxiosError,
-} from '../../mocks/connectors/traces-connector';
-import { IpError } from '../../../src/errors/ip-error';
-import { ExternalError } from '../../../src/errors/external-error';
+  tracesAxiosGetResponseError,
+  tracesAxiosGetResponseOk,
+} from '../../mocks/connectors/ip-geolocalization-connector';
 
-describe('traces-connector suite test', () => {
+describe('ip-geolocalization-connector suite test', () => {
   jest.mock('axios');
   afterEach(async () => {
     jest.clearAllMocks();
@@ -23,7 +23,7 @@ describe('traces-connector suite test', () => {
     axios.get = jest.fn().mockResolvedValueOnce(tracesAxiosGetResponseOk);
 
     // Act
-    const result = await tracesConnector.getData('192.168.1.1');
+    const result = await ipGeolocalizationConnector.getData('192.168.1.1');
 
     // Assert
     expect(createAxiosClientSpy).toHaveBeenCalledTimes(1);
@@ -40,12 +40,12 @@ describe('traces-connector suite test', () => {
 
     try {
       // Act
-      await tracesConnector.getData('192.168.1.1');
+      await ipGeolocalizationConnector.getData('192.168.1.1');
     } catch (error) {
       // Assert
       expect(createAxiosClientSpy).toHaveBeenCalledTimes(1);
       expect(error).toBeInstanceOf(IpError);
-      expect(error.name).toBe('Traces-getData');
+      expect(error.name).toBe('IpGeolocalization-getData');
       expect(error.statusCode).toBe(400);
     }
   });
@@ -59,12 +59,12 @@ describe('traces-connector suite test', () => {
 
     try {
       // Act
-      await tracesConnector.getData('192.168.1.1');
+      await ipGeolocalizationConnector.getData('192.168.1.1');
     } catch (error) {
       // Assert
       expect(createAxiosClientSpy).toHaveBeenCalledTimes(1);
       expect(error).toBeInstanceOf(ExternalError);
-      expect(error.name).toBe('Traces-getData');
+      expect(error.name).toBe('IpGeolocalization-getData');
       expect(error.statusCode).toBe(500);
     }
   });

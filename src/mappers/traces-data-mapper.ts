@@ -1,16 +1,39 @@
 import {
-  TracesApiResponse,
+  CurrencyApiResponse,
+  IpGeolocalizationApiResponse,
   TracesResultResponse,
 } from '../interfaces/resources/traces';
 
 export const formatResponse = (
-  apiResponse: TracesApiResponse,
+  ipGeoApiResponse: IpGeolocalizationApiResponse,
+  currencyApiResponse: CurrencyApiResponse,
 ): TracesResultResponse => {
   return {
-    ip: apiResponse.query,
-    name: apiResponse.country,
-    code: apiResponse.countryCode,
-    lat: apiResponse.lat,
-    lon: apiResponse.lon,
+    ip: ipGeoApiResponse.query,
+    name: ipGeoApiResponse.country,
+    code: ipGeoApiResponse.countryCode,
+    lat: ipGeoApiResponse.lat,
+    lon: ipGeoApiResponse.lon,
+    currencies:
+      ipGeoApiResponse.currency !== 'USD'
+        ? [
+            {
+              iso: ipGeoApiResponse.currency,
+              symbol: '$',
+              conversionRate: currencyApiResponse.result,
+            },
+            {
+              iso: 'USD',
+              symbol: '$',
+              conversionRate: 1,
+            },
+          ]
+        : [
+            {
+              iso: ipGeoApiResponse.currency,
+              symbol: '$',
+              conversionRate: currencyApiResponse.result,
+            },
+          ],
   };
 };

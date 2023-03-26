@@ -7,7 +7,7 @@
     "build": "tsc --project ./",
     "start": "node dist/server.js",
     "watch": "nodemon -r dotenv/config src/server.ts",
-    "dev": "docker-compose up -d app",
+    "dev": "docker-compose up --build -d app",
     "dev2": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
     "test:unit": "npx jest --config=jest.config.unit.ts --passWithNoTests --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false --forceExit --runInBand --colors",
     "test": "npx jest --config=jest.config.ts --passWithNoTests --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false --forceExit --runInBand --logHeapUsage --colors"

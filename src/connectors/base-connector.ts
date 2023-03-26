@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { requestConstants } from '../constants/request';
 import { createAxiosClient } from '../helpers/axios/axios-client-helper';
 import { Configuration } from '../interfaces/axios/request';
@@ -11,17 +11,21 @@ abstract class BaseConnector {
     };
   };
 
-  protected doGet = async <T>(endpoint: string, params: any): Promise<T> => {
+  protected doGet = async <T>(
+    endpoint: string,
+    config: AxiosRequestConfig,
+  ): Promise<T> => {
     try {
       const configuration: Configuration = this.getConfiguration();
       const axiosClient: AxiosInstance = createAxiosClient(configuration);
       console.info('<base-connector> GET - Request:', {
         endpoint,
-        params,
+        config,
       });
-      const { data: externalResponse } = await axiosClient.get<T>(endpoint, {
-        params,
-      });
+      const { data: externalResponse } = await axiosClient.get<T>(
+        endpoint,
+        config,
+      );
       return externalResponse;
     } catch (error) {
       console.error('<base-connector> Error in GET:', {
