@@ -5,6 +5,7 @@ import { Server } from 'http';
 import config from './config/common';
 import { Route } from './interfaces/routes/routes';
 import { errorResponseHandler } from './middlewares/error-handler';
+import { redisCache } from './config/database/redis';
 
 class App {
   public app: express.Application;
@@ -25,6 +26,8 @@ class App {
     // The errorHandler middleware has to be initialized after routes handlers
     // For the next(error) calls to be directed towards them.
     this.initializeErrorHandler();
+    // Initialize Redis Cache
+    await redisCache.initializeClient();
   };
 
   public listen = () => {

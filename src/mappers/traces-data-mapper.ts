@@ -20,7 +20,7 @@ export const formatResponse = (
             {
               iso: ipGeoApiResponse.currency,
               symbol: '$',
-              conversionRate: currencyApiResponse.result,
+              conversionRate: currencyApiResponse?.result,
             },
             {
               iso: 'USD',
@@ -32,7 +32,7 @@ export const formatResponse = (
             {
               iso: ipGeoApiResponse.currency,
               symbol: '$',
-              conversionRate: currencyApiResponse.result,
+              conversionRate: currencyApiResponse?.result,
             },
           ],
   };

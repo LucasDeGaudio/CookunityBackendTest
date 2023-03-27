@@ -7,6 +7,7 @@ import { ipGeolocalizationConnector } from '../connectors/ip-geolocalization-con
 import { currencyConnector } from '../connectors/currency-connector';
 import { formatResponse } from '../mappers/traces-data-mapper';
 import { distanceService } from './distance-service';
+import { updateStatisticsService } from './update-statistics-service';
 
 class TracesService {
   public getInfo = async (ip: string): Promise<TracesResultResponse> => {
@@ -14,8 +15,10 @@ class TracesService {
       const ipGeoApiResponse: IpGeolocalizationApiResponse =
         await ipGeolocalizationConnector.getData(ip);
 
-      const currencyApiResponse: CurrencyApiResponse =
-        await currencyConnector.getData(ipGeoApiResponse.currency);
+      // const currencyApiResponse: CurrencyApiResponse =
+      //   await currencyConnector.getData(ipGeoApiResponse.currency);
+
+      const currencyApiResponse: CurrencyApiResponse = null;
 
       const response: TracesResultResponse = formatResponse(
         ipGeoApiResponse,
@@ -27,6 +30,8 @@ class TracesService {
         response.lon,
       );
       response.distanceToUsa = distanceToUsa;
+
+      await updateStatisticsService.process(response);
       return response;
     } catch (error) {
       console.error('<traces-service> Error:', {

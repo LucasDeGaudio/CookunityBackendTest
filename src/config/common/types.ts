@@ -1,5 +1,5 @@
 export type Config = {
   port: string;
-  host: string;
+  redisPort: string;
   nodeEnv: string;
 };
