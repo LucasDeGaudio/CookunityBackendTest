@@ -3,9 +3,8 @@ import { createClient } from 'redis';
 import config from '../common/index';
 import { RedisError } from '../../errors/redis-error';
 
-export class RedisCache {
+class RedisCache {
   private redisClient: RedisClientType;
-  private isReady: boolean = false;
 
   public initializeClient = async (): Promise<void> => {
     try {
@@ -19,10 +18,10 @@ export class RedisCache {
 
       this.redisClient.on('error', (error) => {
         console.error(`Redis error, service degraded: ${error}`);
+        throw new RedisError('redis-connection');
       });
 
       await this.redisClient.connect();
-      this.isReady = true;
     } catch (error) {
       console.error('Error initializing Redis: ', error);
       throw new RedisError('redis-initializing');

@@ -13,6 +13,8 @@ services:
     environment:
       NODE_ENV: development
       PORT: 8080
+      REDIS_PORT: 6379
+      REDIS_HOST: localhost
   redis:
     image: redis
     volumes:

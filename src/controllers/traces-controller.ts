@@ -19,11 +19,8 @@ class TracesController {
       const requestBody: TracesRequest = req.body;
       console.info('<GET traces> Request received:', requestBody);
       const ip = requestBody.ip;
-      console.info('ip: ', ip);
 
       const response: TracesResultResponse = await tracesService.getInfo(ip);
-      console.info(response);
-
       const jsonResponse: ApiResponse = response;
 
       resolveResponse(res, responseConstants.httpResponseCode.OK, jsonResponse);

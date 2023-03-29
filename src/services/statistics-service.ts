@@ -1,29 +1,20 @@
 import { StatisticsResultResponse } from '../interfaces/resources/statistics';
-import { RedisRepository } from '../repository/redis-repository';
+import { redisRepository } from '../repository/redis-repository';
 
 class StatisticsService {
-  private readonly redisRepository: RedisRepository;
-
-  constructor() {
-    this.redisRepository = new RedisRepository();
-  }
-
   public getInfo = async (): Promise<StatisticsResultResponse> => {
     try {
       await this.calculateMostTracedCountry();
 
-      const longestDistanceCountry = await this.redisRepository.get(
+      const longestDistanceCountry = await redisRepository.get(
         'longestDistance.country',
       );
-      const longestDistanceValue = await this.redisRepository.get(
+      const longestDistanceValue = await redisRepository.get(
         'longestDistance.value',
       );
-      const mostTracedCountry = await this.redisRepository.get(
-        'mostTraced.country',
-      );
-      const mostTracedValue = await this.redisRepository.get(
-        'mostTraced.value',
-      );
+      const mostTracedCountry = await redisRepository.get('mostTraced.country');
+      const mostTracedValue = await redisRepository.get('mostTraced.value');
+
       return {
         longestDistance: {
           country: longestDistanceCountry,
@@ -43,29 +34,36 @@ class StatisticsService {
   };
 
   private calculateMostTracedCountry = async () => {
-    const countries: string[] = await this.redisRepository.getAll('country.*');
-    console.info('countries: ', countries);
+    const countries: string[] = await redisRepository.getAll('country.*');
+    if (countries.length) {
+      const countryMap = {};
+      await Promise.all(
+        countries.map(async (country) => {
+          const value = await redisRepository.get(country);
+          countryMap[country] = value;
+        }),
+      );
 
-    const countryMap = {};
+      const mostTracedValue = Object.values(countryMap).reduce(
+        (prev, current) => {
+          return Number(prev) > Number(current)
+            ? Number(prev)
+            : Number(current);
+        },
+        0,
+      );
 
-    await Promise.all(
-      countries.map(async (country) => {
-        const value = await this.redisRepository.get(country);
-        console.info(`country: ${country} value: ${value}`);
-        countryMap[country] = value;
-      }),
-    );
-    const mostTracedValue = Object.values(countryMap).reduce(
-      (prev, current) => {
-        return prev > current ? prev : current;
-      },
-      0,
-    );
+      const mostTracedCountryValue = Object.keys(countryMap).find(
+        (key) => countryMap[key] === String(mostTracedValue),
+      );
 
-    const mostTracedCountryValue = Object.keys(countryMap).find(
-      (key) => countryMap[key] === mostTracedValue,
-    );
-    console.info(mostTracedCountryValue);
+      // Get all requested country names
+      const countryNames = await redisRepository.getHash('countries.names');
+      const mostTracedCountryName = countryNames[mostTracedCountryValue];
+
+      redisRepository.set('mostTraced.country', mostTracedCountryName);
+      redisRepository.set('mostTraced.value', String(mostTracedValue));
+    }
   };
 }
 
