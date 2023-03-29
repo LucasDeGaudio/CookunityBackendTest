@@ -1,0 +1,158 @@
+openapi: 3.0.3
+info:
+  description: This document will help you become familiar with the resources availables.
+  version: 1.0.0
+  title: Backend home test
+servers:
+  - url: http://localhost:8000/
+    description: Local Server for Development
+paths:
+  /traces:
+    post:
+      description: Method to process an ip and obtain information about it
+      requestBody:
+        $ref: '#/components/requestBodies/PostTraces'
+      tags: [Resources]
+      responses:
+        '200':
+          $ref: '#/components/responses/PostTracesSuccess'
+        '400':
+          $ref: '#/components/responses/InvalidRequestError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /statistics:
+    get:
+      description: Method to obtain statistics about ip requested
+      tags: [Resources]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetStatisticsSuccess'
+        '400':
+          $ref: '#/components/responses/InvalidRequestError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  schemas:
+    PostTracesSuccessSchema:
+      type: object
+      properties:
+        ip:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        currencies:
+          type: array
+          items:
+            type: object
+            properties:
+              iso:
+                type: string
+              symbol:
+                type: string
+              conversionRate:
+                type: number
+        distanceToUsa:
+          type: number
+      example:
+        ip: 192.168.1.1
+        name: Argentina
+        code: AR
+        lat: -36
+        lon: -59.9964
+        currencies:
+          [
+            { iso: ARS, symbol: $, conversionRate: 0.04 },
+            { iso: USD, symbol: $, conversionRate: 1 },
+          ]
+        distanceToUsa: 8922
+    GetStatisticsSuccessSchema:
+      type: object
+      properties:
+        longestDistance:
+          type: object
+          properties:
+            country:
+              type: string
+            value:
+              type: number
+        mostTraced:
+          type: object
+          properties:
+            country:
+              type: string
+            value:
+              type: number
+      example:
+        longestDistance: { country: Argentina, value: 8922 }
+        mostTraced: { country: Argentina, value: 21 }
+    InvalidRequestErrorSchema:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        statusMessage:
+          type: string
+        errorMessage:
+          type: string
+      example:
+        statusCode: 400
+        statusMessage: INVALID_REQUEST
+        errorMessage: 'Your request seems to be invalid'
+    InternalErrorSchema:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        statusMessage:
+          type: string
+      example:
+        statusCode: 500
+        statusMessage: ERROR
+  requestBodies:
+    PostTraces:
+      description: Body to process an ip
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ip:
+                type: string
+            required:
+              - ip
+          example:
+            ip: '192.168.1.1'
+  responses:
+    PostTracesSuccess:
+      description: Process ip successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PostTracesSuccessSchema'
+    GetStatisticsSuccess:
+      description: Get statistics successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetStatisticsSuccessSchema'
+    InvalidRequestError:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InvalidRequestErrorSchema'
+    InternalError:
+      description: An internal error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalErrorSchema'
+tags:
+  - name: Resources

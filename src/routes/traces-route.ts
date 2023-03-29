@@ -16,7 +16,7 @@ export class TracesRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(
+    this.router.post(
       `${this.basePath}`,
       [this.validator.body(getTracesValidator)],
       this.tracesController.process,

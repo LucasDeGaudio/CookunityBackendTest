@@ -15,18 +15,18 @@ class TracesController {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      console.info('<GET traces> Starting...');
+      console.info('<POST traces> Starting...');
       const requestBody: TracesRequest = req.body;
-      console.info('<GET traces> Request received:', requestBody);
+      console.info('<POST traces> Request received:', requestBody);
       const ip = requestBody.ip;
 
       const response: TracesResultResponse = await tracesService.getInfo(ip);
       const jsonResponse: ApiResponse = response;
 
       resolveResponse(res, responseConstants.httpResponseCode.OK, jsonResponse);
-      console.info('<GET traces> Finished');
+      console.info('<POST traces> Finished');
     } catch (error) {
-      console.error('<GET traces> Error:', error);
+      console.error('<POST traces> Error:', error);
       next(error);
     }
   };
