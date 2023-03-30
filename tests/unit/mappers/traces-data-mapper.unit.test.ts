@@ -8,7 +8,7 @@ import {
   currencyApiMockUSAResponse,
 } from '../../mocks/mappers/traces-data-mapper';
 
-describe('traces-data-mapper', () => {
+describe('traces-data-mapper suite tests', () => {
   test('Should execute formatResponse successfully with ARG data', () => {
     const result = formatResponse(
       ipGeoApiMockARGResponse,

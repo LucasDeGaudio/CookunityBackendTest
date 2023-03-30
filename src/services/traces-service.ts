@@ -10,7 +10,7 @@ import { distanceService } from './distance-service';
 import { updateStatisticsService } from './update-statistics-service';
 
 class TracesService {
-  public getInfo = async (ip: string): Promise<TracesResultResponse> => {
+  public process = async (ip: string): Promise<TracesResultResponse> => {
     try {
       const ipGeoApiResponse: IpGeolocalizationApiResponse =
         await ipGeolocalizationConnector.getData(ip);

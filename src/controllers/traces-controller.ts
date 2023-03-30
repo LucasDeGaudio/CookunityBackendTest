@@ -20,7 +20,7 @@ class TracesController {
       console.info('<POST traces> Request received:', requestBody);
       const ip = requestBody.ip;
 
-      const response: TracesResultResponse = await tracesService.getInfo(ip);
+      const response: TracesResultResponse = await tracesService.process(ip);
       const jsonResponse: ApiResponse = response;
 
       resolveResponse(res, responseConstants.httpResponseCode.OK, jsonResponse);
