@@ -5,6 +5,6 @@ export interface ApiResponse {
 export interface ApiErrorResponse {
   statusCode: number;
   statusMessage: string;
-  errorMessage: string;
+  errorMessage?: string;
   data?: { [key: string]: any };
 }

@@ -15,10 +15,10 @@ class TracesService {
       const ipGeoApiResponse: IpGeolocalizationApiResponse =
         await ipGeolocalizationConnector.getData(ip);
 
-      // const currencyApiResponse: CurrencyApiResponse =
-      //   await currencyConnector.getData(ipGeoApiResponse.currency);
+      const currencyApiResponse: CurrencyApiResponse =
+        await currencyConnector.getData(ipGeoApiResponse.currency);
 
-      const currencyApiResponse: CurrencyApiResponse = null;
+      // const currencyApiResponse: CurrencyApiResponse = null;
 
       const response: TracesResultResponse = formatResponse(
         ipGeoApiResponse,

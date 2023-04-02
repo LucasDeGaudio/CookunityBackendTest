@@ -18,10 +18,10 @@ abstract class BaseConnector {
     try {
       const configuration: Configuration = this.getConfiguration();
       const axiosClient: AxiosInstance = createAxiosClient(configuration);
-      console.info('<base-connector> GET - Request:', {
-        endpoint,
-        config,
-      });
+      // console.info('<base-connector> GET - Request:', {
+      //   endpoint,
+      //   config,
+      // });
       const { data: externalResponse } = await axiosClient.get<T>(
         endpoint,
         config,

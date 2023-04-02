@@ -11,11 +11,11 @@ This application provides information about an IP address and provides statistic
 
 ### Considerations before running the application:
 
-The application runs on port 8083. You can modify the port binding in the `docker-compose.yml` file.
+The application runs on port 8000. You can modify the port binding in the `docker-compose.yml` file.
 
 Redis runs on port 6379 (the port is bound to the host port in case you want to inspect the db from a client, but it's not necessary for the app to work). If there is a conflict, modify or remove the port in the `docker-compose.yml` file (`ports` property in redis section).
 
-A Volume is used so that the Redis information is persisted. A `data` folder will be created when the container is built (in the project directory). You have to enable _Shared Drives_ in Docker for the volume to work.
+A Volume is used so that the Redis information is persisted. A `data` folder will be created when the container is built (in the project directory).
 
 ### Steps to run:
 
@@ -23,7 +23,7 @@ A Volume is used so that the Redis information is persisted. A `data` folder wil
 2. Go to the project directory: `cd CookunityBackendTest`
 3. Run the `npm run dev` command
 4. When finished, you can verify that the containers are running with the `docker ps` command
-5. Open a browser window and go to the API documentation `http://localhost:8083/docs`
+5. Open a browser window and go to the API documentation `http://localhost:8000/docs`
 
 ### Useful commands:
 
@@ -39,4 +39,13 @@ Redis is used to store information about the invocations to the service (to gene
 
 ### Documentation:
 
-The application is documented with Swagger, to enter open the browser with the following route `http://localhost:8083/docs`
+The application is documented with Swagger, to enter open the browser with the following route `http://localhost:8000/docs`
+
+### Testing:
+
+The application has the following coverage tresholds percentage:
+
+- branches: 90
+- functions: 90
+- lines: 90
+- statements: 90

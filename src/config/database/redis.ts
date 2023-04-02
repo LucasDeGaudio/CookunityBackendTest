@@ -9,7 +9,7 @@ class RedisCache {
   public initializeClient = async (): Promise<void> => {
     try {
       this.redisClient = createClient({
-        url: 'redis://localhost:6379',
+        url: `${config.redis.url}:${config.redis.port}`,
       });
 
       this.redisClient.on('connect', () => {

@@ -8,8 +8,8 @@ export class ApiError extends Error {
 
   constructor(
     name: string,
-    statusCode: number,
-    errorMessage: string,
+    statusCode?: number,
+    errorMessage?: string,
     errorCode?: string,
     statusMessage?: string,
     data?: { [key: string]: any },

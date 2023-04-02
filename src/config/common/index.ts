@@ -5,7 +5,7 @@ const config: Config = {
   nodeEnv: process.env.NODE_ENV,
   redis: {
     port: process.env.REDIS_PORT,
-    host: process.env.REDIS_HOST,
+    url: process.env.REDIS_URL,
   },
 };
 

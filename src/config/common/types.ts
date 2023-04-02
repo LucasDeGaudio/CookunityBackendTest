@@ -3,6 +3,6 @@ export type Config = {
   nodeEnv: string;
   redis: {
     port: string;
-    host: string;
+    url: string;
   };
 };

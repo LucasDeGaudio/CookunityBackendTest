@@ -22,7 +22,7 @@ paths:
           $ref: '#/components/responses/InternalError'
   /statistics:
     get:
-      description: Method to obtain statistics about ip requested
+      description: Method to obtain statistics about the service like Longest distance from requested traces and Most traced country
       tags: [Resources]
       responses:
         '200':

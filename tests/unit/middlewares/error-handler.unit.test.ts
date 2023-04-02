@@ -45,4 +45,24 @@ describe('error-handler suite tests', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith(errorResponse);
   });
+
+  test('Should handle error without status code', () => {
+    const req = { query: {} } as Request;
+    const res = {} as Response;
+    res.status = jest.fn().mockReturnValue(res);
+    res.json = jest.fn().mockReturnValue(res);
+    const next = jest.fn() as NextFunction;
+
+    const apiError = new ApiError('fake error');
+
+    const errorResponse: ApiErrorResponse = {
+      statusCode: 500,
+      statusMessage: 'ERROR',
+    };
+
+    errorResponseHandler(apiError, req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith(errorResponse);
+  });
 });
