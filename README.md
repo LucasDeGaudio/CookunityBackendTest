@@ -6,8 +6,8 @@ This application provides information about an IP address and provides statistic
 
 ### Requirements:
 
-- NodeJS >= 16.14 (testeado en 16.14)
-- Docker (testeado en 4.15.0 )
+- NodeJS >= 16.14 (tested in 16.14)
+- Docker (tested in 4.15.0 )
 
 ### Considerations before running the application:
 
@@ -42,6 +42,9 @@ Redis is used to store information about the invocations to the service (to gene
 The application is documented with Swagger, to enter open the browser with the following route `http://localhost:8000/docs`
 
 ### Testing:
+
+1. Run the `npm i` command
+2. Run the `npm run test` command
 
 The application has the following coverage tresholds percentage:
 

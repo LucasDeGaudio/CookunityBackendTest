@@ -1,9 +1,5 @@
 version: '3.9'
 
-volumes:
-  data:
-    driver: local
-
 services:
   app:
     container_name: cookunity_app
@@ -20,10 +16,10 @@ services:
       PORT: 8080
       REDIS_PORT: 6379
       REDIS_URL: redis://redis
-    # volumes:
-    #   - ./:/app
-    # stdin_open: true
-    # tty: true
+    volumes:
+      - ./:/app/
+    stdin_open: true
+    tty: true
 
   redis:
     image: redis

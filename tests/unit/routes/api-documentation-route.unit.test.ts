@@ -2,7 +2,7 @@ import { ApiDocumentationRoute } from '../../../src/routes/api-documentation-rou
 
 describe('api-documentation-route suite tests', () => {
   test('Should initialize docs route', () => {
-    const escrowApiDocumentationRoute = new ApiDocumentationRoute();
-    expect(escrowApiDocumentationRoute.basePath).toBe('/docs');
+    const apiDocumentationRoute = new ApiDocumentationRoute();
+    expect(apiDocumentationRoute.basePath).toBe('/docs');
   });
 });

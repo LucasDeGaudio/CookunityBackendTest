@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   description: This document will help you become familiar with the resources availables.
   version: 1.0.0
-  title: Backend home test
+  title: Cookunity backend home test
 servers:
   - url: http://localhost:8000/
     description: Local Server for Development

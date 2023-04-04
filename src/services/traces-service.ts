@@ -18,8 +18,6 @@ class TracesService {
       const currencyApiResponse: CurrencyApiResponse =
         await currencyConnector.getData(ipGeoApiResponse.currency);
 
-      // const currencyApiResponse: CurrencyApiResponse = null;
-
       const response: TracesResultResponse = formatResponse(
         ipGeoApiResponse,
         currencyApiResponse,
